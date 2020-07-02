@@ -1,13 +1,13 @@
 const express = require('express');
 const app = express();
-const broker = require('./broker').init();
+// const broker = require('./broker').init();
 
 const PORT = process.env.PORT || 80;
 let data = 'TEST MESSAGE'
 let topic = 'no topic'
-setTimeout(() => {
-    topic = "changed message"
-}, 3000);
+// setTimeout(() => {
+//     topic = "changed message"
+// }, 3000);
 app.listen(PORT, () => {
     console.log('Server has been started');
 })
@@ -15,7 +15,7 @@ app.listen(PORT, () => {
 const mqtt = require('mqtt')
 
 
-const client = mqtt.connect('ws://cactus-watering.herokuapp.com:1883')
+const client = mqtt.connect('ws://cactus-watering.herokuapp.com')
 
 client.on('message', (topic, message) => {
     data = message
@@ -25,11 +25,11 @@ client.on('message', (topic, message) => {
 client.on('connect', () => {
     client.subscribe('test')
 })
-const publisher = mqtt.connect('ws://cactus-watering.herokuapp.com/:1883')
+// const publisher = mqtt.connect('ws://cactus-watering.herokuapp.com/')
 
-publisher.on('connect', () => {
-    publisher.publish('test', Math.random()*100 + ' хуй')
-})
+// publisher.on('connect', () => {
+//     publisher.publish('test', Math.random()*100 + ' new data')
+// })
 
 
 // const PORT = 10200;
