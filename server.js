@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-// const broker = require('./broker').init();
+const broker = require('./broker').init();
 
 const PORT = process.env.PORT || 80;
 let data = 'TEST MESSAGE'
@@ -27,8 +27,8 @@ client.on('message', (topic, message) => {
 client.on('connect', () => {
     client.subscribe('test')
 })
-// const publisher = mqtt.connect('mqtt://cactus-watering.herokuapp.com/:1883')
+const publisher = mqtt.connect('ws://cactus-watering.herokuapp.com/:1883')
 
-// publisher.on('connect', () => {
-//     publisher.publish('test', Math.random()*100 + ' хуй')
-// })
+publisher.on('connect', () => {
+    publisher.publish('test', Math.random()*100 + ' хуй')
+})
