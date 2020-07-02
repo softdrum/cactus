@@ -4,9 +4,10 @@ const broker = require('./broker').init();
 
 const PORT = process.env.PORT || 80;
 let data = 'xui'
+let topic = ''
 // const PORT = 10200;
 app.get('/', (req, res) => {
-    res.send(`<h1>Home</h1><br/>data: ${data}`)
+    res.send(`<h1>Home</h1><br/>topic: ${topic} data: ${data}`)
 })
 
 app.listen(PORT, () => {
@@ -20,6 +21,7 @@ const client = mqtt.connect('mqtt://cactus-watering.herokuapp.com/:1883')
 
 client.on('message', (topic, message) => {
     data = message
+    topic = topic
 })
 
 client.on('connect', () => {
